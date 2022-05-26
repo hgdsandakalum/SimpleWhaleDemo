@@ -45,4 +45,14 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:buildcache,mode=max
+      -    
+        name: Get pods
+        uses: actions/checkout@v1
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+      - uses: actions-hub/kubectl@master
+        with:
+          args: get pods
 
